@@ -2,6 +2,8 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text } from 'react-native';
 import axios from 'axios';
+import { StyleSheet } from 'react-native';
+
 
 const ClimaScreen = () => {
   const [climaData, setClimaData] = useState(null);
@@ -34,19 +36,50 @@ const ClimaScreen = () => {
       </View>
     );
   }
+  const styles = StyleSheet.create({
+          container: {
+            flex: 1,
+            padding: 16,
+            backgroundColor: '#fff',
+          },
+          listItem: {
+            marginBottom: 16,
+            padding: 8,
+            borderWidth: 1,
+            borderColor: '#ccc',
+            borderRadius: 8,
+          },
+          locationText: {
+            fontSize: 18,
+            fontWeight: 'bold',
+          },
+          temperatureText: {
+            fontSize: 16,
+            marginTop: 4,
+          },
+          conditionText: {
+            fontSize: 14,
+            color: '#888',
+          },
+        });
 
-  return (
-    <View>
-      {climaData.map((clima, index) => (
-        <View key={index}>
-          <Text>Ubicacion: {clima.location.name}, {clima.location.region}, {clima.location.country}</Text>
-          <Text>Temperatura: {clima.current.temp_c}°C</Text>
-          <Text>Condicion: {clima.current.condition.text}</Text>
-          <Text>--------------------------------</Text>
-        </View>
-      ))}
-    </View>
-  );
-};
+        return (
+          <View style={styles.container}>
+            {climaData.map((clima, index) => (
+              <View key={index} style={styles.listItem}>
+                <Text style={styles.locationText}>
+                  Ubicación: {clima.location.name}, {clima.location.region}, {clima.location.country}
+                </Text>
+                <Text style={styles.temperatureText}>
+                  Temperatura: {clima.current.temp_c}°C
+                </Text>
+                <Text style={styles.conditionText}>
+                  Condición: {clima.current.condition.text}
+                </Text>
+              </View>
+            ))}
+          </View>
+        );
 
+            };
 export default ClimaScreen;
